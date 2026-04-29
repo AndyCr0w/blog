@@ -4,4 +4,5 @@ title: 关于
 permalink: /about/
 ---
 
-这是一个关于页面，请编辑about.md以介绍你的博客。
+这是一个关于页面，目前还在编辑中。
+This is an About page, currently under editing.
