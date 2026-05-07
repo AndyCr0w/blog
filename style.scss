@@ -23,13 +23,18 @@ body {
   font-family: $base-font;
   color: $base-color;
   line-height: 1.7em;
+  background: $background-color;
 }
 
 .container {
   margin: 0 auto;
   max-width: 1000px;
-  padding: 0 20px;
+  padding: 42px 32px 56px;
   width: 100%;
+
+  @include mobile {
+    padding: 28px 20px 42px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -320,24 +325,26 @@ img {
 //
 
 .wrapper-sidebar {
-  width: 30%;
+  width: 24%;
 	-webkit-background-size: cover;
 	background-size: cover;
-	background-color: $background-color;
+	background-color: $blue;
 	height: 100%;
 	top: 0;
 	left:0;
 	position: fixed;
 	z-index: 4;
-  border-right: 1px solid $divider-color;
+  border-right: 0;
+  box-shadow: 8px 0 26px rgba(0, 64, 122, 0.08);
 
   @include mobile {
     width: 100%;
     height: auto;
     padding-bottom: 24px;
     position: relative;
-    border-bottom: 1px solid $divider-color;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     border-right: 0;
+    box-shadow: 0 8px 26px rgba(0, 64, 122, 0.08);
   }
 }
 
@@ -352,6 +359,7 @@ img {
 .site-info {
   text-align:center;
   margin: 100px auto 0;
+  padding: 0 24px;
 
   @include mobile {
     float: none;
@@ -373,23 +381,33 @@ img {
     img {
       display: inline-block;
       border-radius: 2px;
+      border: 4px solid rgba(255, 255, 255, 0.32);
+      box-shadow: 0 12px 30px rgba(0, 41, 79, 0.18);
     }
   }
 }
 
 .site-name {
   margin: 0 auto;
-  color: $base-color;
+  color: $white;
   cursor: pointer;
   font-family: $base-font;
   font-weight: 700;
   font-size: 28px;
   letter-spacing: 1px;
+
+  a {
+    color: inherit;
+
+    &:hover, &:active {
+      color: rgba(255, 255, 255, 0.82);
+    }
+  }
 }
 
 .site-description {
   margin: 15px auto;
-  color: $base-lighten-color;
+  color: rgba(255, 255, 255, 0.76);
   font-size: 16px;
 
   @include mobile {
@@ -418,10 +436,15 @@ nav {
     text-align: right;
     font-weight: 300;
     letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.84);
+
+    &:hover, &:active {
+      color: $white;
+    }
 
     @include mobile {
       margin: 0 10px;
-      color: $link-color;
+      color: rgba(255, 255, 255, 0.84);
     }
   }
 }
@@ -430,7 +453,9 @@ nav {
 
 .wrapper-content {
   float: right;
-  width: 70%;
+  width: 76%;
+  min-height: 100vh;
+  background: $background-color;
 
   @include mobile {
     float: none;
@@ -456,15 +481,19 @@ nav {
       margin: 0;
 
       > a {
-        margin: 3px 3px 3px 0;
-        padding: .5px 4px;
-        color: $base-color;
+        display: inline-block;
+        margin: 4px 5px 4px 0;
+        padding: 2px 9px;
+        color: $link-color;
         background-color: $tag-index-label-background-color;
-        border-radius: 3px;
+        border: 1px solid rgba(0, 109, 204, 0.12);
+        border-radius: 999px;
+        line-height: 1.5;
 
         &:hover {
-          color: $link-color;
-          background-color:$link-bghv-color;
+          color: $white;
+          background-color: $link-color;
+          border-color: $link-color;
         }
       }
     }
@@ -472,18 +501,43 @@ nav {
 }
 
 .posts > .post {
-  padding-bottom: 2em;
-  border-bottom: 1px solid $divider-color;
+  margin-bottom: 24px;
+  padding: 26px 30px;
+  background: $card-background-color;
+  border: 1px solid $divider-color;
+  border-radius: 8px;
+  box-shadow: 0 14px 36px $card-shadow-color;
+
+  h1 {
+    margin-top: 0;
+    line-height: 1.35em;
+
+    a {
+      color: $base-color;
+
+      &:hover, &:active {
+        color: $link-color;
+      }
+    }
+  }
+
+  @include mobile {
+    padding: 22px 20px;
+  }
 }
 
 .posts > .post:last-child {
-  padding-bottom: 1em;
-  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.posts > .post.pinned {
+  background: linear-gradient(180deg, $card-background-color 0%, $blue-light 100%);
+  border-color: rgba(0, 109, 204, 0.2);
 }
 
 
 .pinned .feather-anchor {
-  color: $base-lighten-color;
+  color: $link-color;
   padding: 2px;
   margin-right: 8px;
 }
@@ -499,7 +553,7 @@ nav {
 .author{
   font-weight:700;
   font-size:$small-font-size;
-  color: $base-lighten-color;
+  color: $link-color;
   margin-right: 4px;
 }
 
@@ -520,11 +574,41 @@ nav {
   }
 }
 
+.post-excerpt {
+  margin-top: 14px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.post-link {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 6px 14px;
+  color: $link-color;
+  background: $link-bghv-color;
+  border: 1px solid rgba(0, 109, 204, 0.14);
+  border-radius: 999px;
+  font-size: $small-font-size;
+  line-height: 1.45;
+
+  &:hover, &:active {
+    color: $white;
+    background: $link-color;
+    border-color: $link-color;
+  }
+}
+
 .page {
-//  margin: 40px;
+  padding: 28px 32px;
+  background: $card-background-color;
+  border: 1px solid $divider-color;
+  border-radius: 8px;
+  box-shadow: 0 14px 36px $card-shadow-color;
 
   @include mobile {
-//    margin: 24px;
+    padding: 22px 20px;
   }
 }
 
@@ -533,24 +617,35 @@ nav {
 .toc {
   width: 240px;
   height: 100%;
-  left: 30%;
+  right: 0;
   position: fixed;
   z-index: 4;
   padding: 60px 20px 0 20px;
   overflow-y: auto;
+  background: rgba(246, 250, 253, 0.92);
+  border-left: 1px solid $divider-color;
   
   &:before{
     content:"目录";
-    margin: 0 0 1em 1em;
+    margin: 0 0 1em 0;
     font-weight: 700;
     font-size: 1.2em;
     display: block;
     padding-bottom: 0.6em;
-    border-bottom: 3px double $divider-color;
+    color: $base-color;
+    border-bottom: 1px solid $divider-color;
   }
 
   li:before{
     content:"";
+  }
+
+  a {
+    color: $base-lighten-color;
+
+    &:hover, &:active {
+      color: $link-color;
+    }
   }
 
   @include mobile{
@@ -560,16 +655,15 @@ nav {
 
 @media screen and (max-width:2200px) and (min-width:1200px){
   .withtoc{
-    padding-left: 260px;
+    padding-right: 260px;
   }
 }
 
 // pagination
 
 .pagination {
-  border-top: 1px solid $divider-color;
   font-weight: 300;
-  padding: 40px 0;
+  padding: 28px 0 40px;
   width: 100%;
   display: inline-block;
 
@@ -582,15 +676,18 @@ nav {
     float: left;
     width: 50%;
     a {
-      color: $base-lighten-color;
+      display: inline-block;
+      color: $link-color;
       border: 1px solid $divider-color;
-      padding: 10px 20px;
-      background: $background-color;
+      padding: 9px 18px;
+      background: $card-background-color;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px $card-shadow-color;
 
       &:hover, &:focus {
-        color: $link-lighten-color;
-        border: 1px solid $link-lighten-color;
-        background-color: $link-bghv-color;
+        color: $white;
+        border: 1px solid $link-color;
+        background-color: $link-color;
       }
     }
   }
@@ -600,15 +697,18 @@ nav {
     text-align: right;
     width: 50%;
     a {
-      color: $base-lighten-color;
+      display: inline-block;
+      color: $link-color;
       border: 1px solid $divider-color;
-      padding: 10px 20px;
-      background: $background-color;
+      padding: 9px 18px;
+      background: $card-background-color;
+      border-radius: 999px;
+      box-shadow: 0 10px 24px $card-shadow-color;
 
       &:hover, &:focus {
-        color: $link-lighten-color;
-        border: 1px solid $link-lighten-color;
-        background-color: $link-bghv-color;
+        color: $white;
+        border: 1px solid $link-color;
+        background-color: $link-color;
       }
     }
   }
@@ -618,6 +718,10 @@ nav {
 .archive {
   a {
     color: $base-color;
+
+    &:hover, &:active {
+      color: $link-color;
+    }
   }
   time {
     color: $base-lighten-color;
@@ -641,22 +745,29 @@ nav {
 
     > a {
       display: inline-block;
-      margin: 1px;
-      color: $base-color;
+      margin: 4px;
+      color: $link-color;
       background-color: $tag-index-label-background-color;
-      border-radius: 3px;
+      border: 1px solid rgba(0, 109, 204, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
 
       &:hover {
-        background-color: $link-bghv-color;
+        color: $white;
+        background-color: $link-color;
+        border-color: $link-color;
+
+        span.count {
+          background-color: rgba(255, 255, 255, 0.18);
+        }
       }
 
       span {
         float: left;
-        padding: .5px 5px;
+        padding: 2px 8px;
 
         &.count {
           background-color: $tag-index-count-background-color;
-          border-radius: 0 3px 3px 0;
 
         }
       }
@@ -667,6 +778,10 @@ nav {
 .tags > .tag {
   a {
     color: $base-color;
+
+    &:hover, &:active {
+      color: $link-color;
+    }
   }
   time {
     color: $base-lighten-color;
@@ -701,7 +816,19 @@ nav {
     display: block;
     width: 100%;
     border-top: 1px solid $footer-border-color;
-    background-color: $footer-background-color;
+    background-color: $card-background-color;
+
+    footer p {
+      color: $base-lighten-color;
+    }
+
+    footer .svg-icon svg {
+      fill: $base-lighten-color;
+
+      &:hover {
+        fill: $link-color;
+      }
+    }
   }
 }
 
@@ -711,7 +838,7 @@ footer {
 
   p {
     font-size: $small-font-size;
-    color: $base-lighten-color;
+    color: rgba(255, 255, 255, 0.76);
   }
 
   .svg-icon {
@@ -729,10 +856,10 @@ footer {
     svg {
       height: 20px;
       width: 20px;
-      fill: $base-lighten-color;
+      fill: rgba(255, 255, 255, 0.76);
       
       &:hover {
-        fill: $link-lighten-color;
+        fill: $white;
       }
     }
 
